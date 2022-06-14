@@ -1,8 +1,6 @@
 # Pytorch Medical Segmentation
 <i>英文版请戳：<a href='https://github.com/MontaEllis/Pytorch-Medical-Segmentation/blob/master/README.md'>这里！</a></i><br />
 
-## Notes
-我们计划在最近对代码进行一次大更新，如果您有任何建议，请随意给[我](elliszkn@163.com)发邮件或者在issue里提。
 
 ## 最近的更新
 * 2021.1.8 训练和测试代码已经发布
@@ -12,9 +10,6 @@
 * 2021.5.16 评估代码公布。
 * 2021.6.24 所有参数都能在hparam.py中调整。
 * 2021.7.7 现在你可以参考医学分类程序: [Pytorch-Medical-Classification](https://github.com/MontaEllis/Pytorch-Medical-Classification)
-* 2022.5.15 现在你可以参考半监督医学分割程序: [SSL-For-Medical-Segmentation](https://github.com/MontaEllis/SSL-For-Medical-Segmentation)
-* 2022.5.17 我们更新了训练和测试代码，修复了一些小bug。
-
 
 ## 环境要求
 * pytorch1.7
@@ -159,10 +154,10 @@ python main.py
 - [ ] nnunet
 
 ## By The Way
-这个项目并不完美，还存在很多问题。如果您正在使用这个项目，并想给作者一些反馈，您可以给[我](elliszkn@163.com)发邮件。
+这个项目并不完美，还存在很多问题。如果您正在使用这个项目，并想给作者一些反馈，您可以给[Kangneng Zhou](elliszkn@163.com)发邮件。
 
 ## 致谢
-这个项目是一个非官方PyTorch实现的3D和2D医学分割，高度依赖于[MedicalZooPytorch](https://github.com/black0017/MedicalZooPytorch)和[torchio](https://github.com/fepegar/torchio)。感谢上述项目。本项目在[Prof. Ruoxiu Xiao](http://enscce.ustb.edu.cn/Teach/TeacherList/2020-10-16/114.html) 和 [Dr. Cheng Chen](b20170310@xs.ustb.edu.cn)的指导下完成。感谢[Youming Zhang](zhangym0820@csu.edu.cn), [Daiheng Gao](https://github.com/tomguluson92), [Jie Zhang](jpeter.zhang@connect.polyu.hk), [Xing Tao](kakatao@foxmail.com), [Weili Jiang](1379252229@qq.com)和[Shanshan Li](https://github.com/ssli23) 对我的帮助。
+这个项目是一个非官方PyTorch实现的3D和2D医学分割，高度依赖于[MedicalZooPytorch](https://github.com/black0017/MedicalZooPytorch)和[torchio](https://github.com/fepegar/torchio)。感谢上述项目。感谢[Cheng Chen](b20170310@xs.ustb.edu.cn), [Youming Zhang](zhangym0820@csu.edu.cn), [Daiheng Gao](https://github.com/tomguluson92), [Jie Zhang](jpeter.zhang@connect.polyu.hk), [Xing Tao](kakatao@foxmail.com), [Weili Jiang](1379252229@qq.com)和[Shanshan Li](https://github.com/ssli23) 对我的帮助。
 
 
 ## 相关工作
