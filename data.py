@@ -38,12 +38,18 @@ def trans2png(source, target):
 
         check_path(os.path.join(target, i_pinyin))
         check_path(os.path.join(target, i_pinyin, "PNG"))
+        check_path(os.path.join(target, i_pinyin, "LABEL"))
 
         folder_list = os.listdir(os.path.join(source, i))
         copytree(os.path.join(source, i, "DICOM"),
                  os.path.join(target, i_pinyin, "DICOM"))
-        copytree(os.path.join(source, i, "LABEL"),
-                 os.path.join(target, i_pinyin, "LABEL"))
+        # copytree(os.path.join(source, i, "LABEL"),
+        #          os.path.join(target, i_pinyin, "LABEL"))
+
+        for label in os.listdir(os.path.join(source, i, "LABEL")):
+            label_img = Image.open(os.path.join(source, i, "LABEL", label)).convert('L')
+            label_img.save(os.path.join(target, i_pinyin, "LABEL", label))
+
         if "PNG" in folder_list:
             for filename in os.listdir(os.path.join(source, i, "PNG")):
                 if ".png" in filename:
