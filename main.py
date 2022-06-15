@@ -280,14 +280,14 @@ def train():
                 affine = batch['source']['affine'][0].numpy()
 
                 if (hp.in_class == 1) and (hp.out_class == 1):
-                    source_image = torchio.ScalarImage(tensor=x, affine=affine)
+                    source_image = torchio.ScalarImage(tensor=x*255, affine=affine)
                     source_image.save(os.path.join(args.output_dir, f"step-{epoch:04d}-source" + hp.save_arch))
                     # source_image.save(os.path.join(args.output_dir,("step-{}-source.mhd").format(epoch)))
 
-                    label_image = torchio.ScalarImage(tensor=y, affine=affine)
+                    label_image = torchio.ScalarImage(tensor=y*255, affine=affine)
                     label_image.save(os.path.join(args.output_dir, f"step-{epoch:04d}-gt" + hp.save_arch))
 
-                    output_image = torchio.ScalarImage(tensor=outputs, affine=affine)
+                    output_image = torchio.ScalarImage(tensor=outputs*255, affine=affine)
                     output_image.save(os.path.join(args.output_dir, f"step-{epoch:04d}-predict" + hp.save_arch))
                 else:
                     y = np.expand_dims(y, axis=1)
@@ -418,7 +418,6 @@ def test():
         )
 
         patch_loader = torch.utils.data.DataLoader(grid_sampler, batch_size=args.batch)
-        aggregator = torchio.inference.GridAggregator(grid_sampler)
         aggregator_1 = torchio.inference.GridAggregator(grid_sampler)
         model.eval()
         with torch.no_grad():
@@ -436,21 +435,18 @@ def test():
                 logits = torch.sigmoid(outputs)
 
                 labels = logits.clone()
-                labels[labels > 0.5] = 1
+                labels[labels > 0.5] = 1 * 255
                 labels[labels <= 0.5] = 0
 
-                aggregator.add_batch(logits, locations)
                 aggregator_1.add_batch(labels, locations)
-        output_tensor = aggregator.get_output_tensor()
         output_tensor_1 = aggregator_1.get_output_tensor()
 
         affine = subj['source']['affine']
         if (hp.in_class == 1) and (hp.out_class == 1):
-            label_image = torchio.ScalarImage(tensor=output_tensor.numpy(), affine=affine)
-            label_image.save(os.path.join(output_dir_test, f"{i:04d}-result_float" + hp.save_arch))
-
             output_image = torchio.ScalarImage(tensor=output_tensor_1.numpy(), affine=affine)
-            output_image.save(os.path.join(output_dir_test, f"{i:04d}-result_int" + hp.save_arch))
+            save_path = os.path.join(output_dir_test, subj['patient'])
+            os.makedirs(save_path, exist_ok=True)
+            output_image.save(os.path.join(save_path, subj['name'] + hp.save_arch))
         else:
             output_tensor = output_tensor.unsqueeze(1)
             output_tensor_1 = output_tensor_1.unsqueeze(1)

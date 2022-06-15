@@ -158,13 +158,14 @@ class MedData_test(torch.utils.data.Dataset):
 
             images_dir = Path(images_dir)
             self.image_paths = sorted(images_dir.glob(hp.fold_arch))
-            labels_dir = Path(labels_dir)
-            self.label_paths = sorted(labels_dir.glob(hp.fold_arch))
 
-            for (image_path, label_path) in zip(self.image_paths, self.label_paths):
+            for image_path in self.image_paths:
+                name = str(image_path).split('\\')[-1].split('.')[0]
+                patient = str(image_path).split('\\')[-2]
                 subject = tio.Subject(
                     source=tio.ScalarImage(image_path),
-                    label=tio.LabelMap(label_path),
+                    name=name,
+                    patient=patient
                 )
                 self.subjects.append(subject)
         else:

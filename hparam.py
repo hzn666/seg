@@ -1,11 +1,11 @@
 class hparams:
-    train_or_test = 'train'
-    output_dir = 'logs/'
+    train_or_test = 'test'
+    output_dir = 'logs-backup/'
     aug = None
     latest_checkpoint_file = 'checkpoint_latest.pt'
-    total_epochs = 100
+    total_epochs = 10
     epochs_per_checkpoint = 10
-    batch_size = 2
+    batch_size = 4
     ckpt = None
     init_lr = 0.002
     scheduer_step_size = 20
