@@ -20,13 +20,8 @@ from torchio.transforms import (
     Compose,
 )
 
-
-
-predict_dir = '/data0/my_project/med/seg_3d/results_6-10'
-labels_dir = '/data2/zkndataset/med/unet/test'
-
-# predict_dir = '/data0/my_project/med/seg_3d/results'
-# labels_dir = '/data2/zkndataset/med/unet/label'
+predict_dir = 'test/PREDICT'
+labels_dir = 'test/LABEL'
 
 
 def do_subject(image_paths, label_paths):
@@ -37,37 +32,32 @@ def do_subject(image_paths, label_paths):
         )
         subjects.append(subject)
 
+
 images_dir = Path(predict_dir)
 labels_dir = Path(labels_dir)
 
-image_paths = sorted(images_dir.glob('*.mhd'))
-label_paths = sorted(labels_dir.glob('*/*.mhd'))
-
+image_paths = sorted(images_dir.glob('*/*.png'))
+label_paths = sorted(labels_dir.glob('*/*.png'))
 
 subjects = []
 do_subject(image_paths, label_paths)
 
-training_set = tio.SubjectsDataset(subjects)
+training_set = tio.SubjectsDataset(subjects=subjects)
 
 
 toc = ToCanonical()
 
-for i,subj in enumerate(training_set.subjects):
+for i, subj in enumerate(training_set):
     gt = subj['gt'][tio.DATA]
 
     # subj = toc(subj)
-    pred = subj['pred'][tio.DATA]#.permute(0,1,3,2)
+    pred = subj['pred'][tio.DATA]  # .permute(0,1,3,2)
 
     # preds.append(pred)
     # gts.append(gt)
 
-
-
-
     preds = pred.numpy()
     gts = gt.numpy()
-
-
 
     pred = preds.astype(int)  # float data does not support bit_and and bit_or
     gdth = gts.astype(int)  # float data does not support bit_and and bit_or
@@ -105,3 +95,4 @@ for i,subj in enumerate(training_set.subjects):
     print(false_positive_rate)
     print(false_negtive_rate)
     print(dice)
+    print("***********")

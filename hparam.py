@@ -1,6 +1,6 @@
 class hparams:
     train_or_test = 'test'
-    output_dir = 'logs-backup/'
+    output_dir = 'logs/'
     aug = None
     latest_checkpoint_file = 'checkpoint_latest.pt'
     total_epochs = 10
@@ -30,4 +30,4 @@ class hparams:
     source_test_dir = 'test/PNG'
     label_test_dir = 'test/LABEL'
 
-    output_dir_test = 'results/'
+    output_dir_test = 'test/PREDICT'
